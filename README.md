@@ -24,5 +24,5 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Design
-([link](https://www.figma.com/design/i0QJOHG4Y4dcqDubcGU0bh/Untitled?node-id=0-1&t=q0we2x7TubLkzNDl-1))
+([figma](https://www.figma.com/design/i0QJOHG4Y4dcqDubcGU0bh/Untitled?node-id=0-1&t=q0we2x7TubLkzNDl-1))
     - *Note* Parallax works only on the site
