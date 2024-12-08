@@ -1,35 +1,65 @@
 <template>
-  <div class="main" style="background-color: #F2F2F2">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <div class="main" style="background-color: #f2f2f2">
     <NavBar></NavBar>
     <div class="Banner">
       <div class="banner-container">
-        <img src="./assets/banner.jpeg" alt="Banner">
+        <img src="./assets/banner.jpeg" alt="Banner" />
         <div class="banner-overlay"></div>
         <div class="banner-content">
           <h1 class="hero">Welcome to Prestax</h1>
           <p class="sub-hero">
-            We are a team of professionals who are dedicated to providing you with the best services in the construction industry.
+            We are a team of professionals who are dedicated to providing you
+            with the best services in the construction industry.
           </p>
         </div>
         <nav class="sub-pages-nav">
           <ul>
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
+            <li>
+              <router-link to="/" :class="{ active: $route.path === '/' }"
+                >Home</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                to="/portfolio"
+                :class="{ active: $route.path === '/portfolio' }"
+                >Portfolio</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                to="/services"
+                :class="{ active: $route.path === '/services' }"
+                >Services</router-link
+              >
+            </li>
+            <li>
+              <a href="#contact" @click.prevent="scrollToSection('contact')"
+                >Contact</a
+              >
+            </li>
           </ul>
         </nav>
       </div>
     </div>
 
-    <!-- Added Services Section -->
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+
     <section class="services">
       <h2>Our Services</h2>
       <div class="services-grid">
         <div class="service-card">
           <i class="fas fa-home"></i>
           <h3>Residential Construction</h3>
-          <p>Building dreams into reality with quality residential construction services.</p>
+          <p>
+            Building dreams into reality with quality residential construction
+            services.
+          </p>
         </div>
         <div class="service-card">
           <i class="fas fa-building"></i>
@@ -62,7 +92,7 @@
       </div>
     </section>
 
-    <div class="footer parallax">
+    <div id="contact" class="footer parallax">
       <div class="footer-content">
         <div class="contact-form">
           <h2>Contact Us</h2>
@@ -79,6 +109,32 @@
           <p>Construction City, CC 12345</p>
           <p>Phone: (555) 123-4567</p>
           <p>Email: info@prestax.com</p>
+          
+          <div class="social-media">
+            <h4>Connect With Us</h4>
+            <div class="social-links">
+              <a href="https://facebook.com/prestax" target="_blank" class="social-link">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+              </a>
+              <a href="https://twitter.com/prestax" target="_blank" class="social-link">
+                <i class="fab fa-x-twitter"></i>
+                <span>Twitter</span>
+              </a>
+              <a href="https://linkedin.com/company/prestax" target="_blank" class="social-link">
+                <i class="fab fa-linkedin-in"></i>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://instagram.com/prestax" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+              </a>
+              <a href="https://youtube.com/prestax" target="_blank" class="social-link">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <p class="copyright">© 2021 Prestax. All rights reserved.</p>
@@ -87,7 +143,60 @@
 </template>
 
 <style>
-/* Existing styles remain the same */
+.social-media {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-media h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #f2f2f2;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #f2f2f2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.social-link i {
+  font-size: 1.1rem;
+}
+
+.social-link span {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .social-links {
+    justify-content: center;
+  }
+  
+  .social-link {
+    width: calc(50% - 0.5rem);
+    justify-content: center;
+  }
+}
+
 .banner-container {
   position: relative;
   width: 100%;
@@ -125,14 +234,14 @@
 .hero {
   font-size: 3.5rem;
   font-weight: 700;
-  color: #F2F2F2;
+  color: #f2f2f2;
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .sub-hero {
   font-size: 1.25rem;
-  color: #F2F2F2;
+  color: #f2f2f2;
   line-height: 1.6;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -158,7 +267,7 @@
 }
 
 .sub-pages-nav a {
-  color: #F2F2F2;
+  color: #f2f2f2;
   text-decoration: none;
   font-size: 1.1rem;
   padding: 0.5rem 1rem;
@@ -168,7 +277,7 @@
 
 .sub-pages-nav a:hover,
 .sub-pages-nav a.active {
-  border-bottom: 2px solid #F2F2F2;
+  border-bottom: 2px solid #f2f2f2;
 }
 
 /* Services Section */
@@ -211,7 +320,7 @@
 
 /* Stats Section */
 .stats {
-  background-image: url('./assets/banner.jpeg');
+  background-image: url("./assets/banner.jpeg");
   padding: 4rem 2rem;
   background-attachment: fixed;
   background-size: cover;
@@ -220,7 +329,7 @@
 }
 
 .stats::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -235,7 +344,7 @@
   justify-content: space-around;
   max-width: 1200px;
   margin: 0 auto;
-  color: #F2F2F2;
+  color: #f2f2f2;
 }
 
 .stat-item {
@@ -249,17 +358,17 @@
 
 /* Footer Styles */
 .footer {
-  background-image: url('./assets/banner.jpeg');
+  background-image: url("./assets/banner.jpeg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
   position: relative;
   padding: 4rem 2rem 2rem;
-  color: #F2F2F2;
+  color: #f2f2f2;
 }
 
 .footer::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -300,7 +409,7 @@
 .contact-form button {
   padding: 1rem;
   background: #333;
-  color: #F2F2F2;
+  color: #f2f2f2;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -327,28 +436,28 @@
   .banner-container {
     height: 50vh;
   }
-  
+
   .hero {
     font-size: 2rem;
   }
-  
+
   .sub-hero {
     font-size: 1rem;
   }
-  
+
   .sub-pages-nav ul {
     gap: 1rem;
   }
-  
+
   .sub-pages-nav a {
     font-size: 0.9rem;
     padding: 0.3rem 0.6rem;
   }
-  
+
   .footer-content {
     grid-template-columns: 1fr;
   }
-  
+
   .stats-container {
     flex-direction: column;
     gap: 2rem;
@@ -357,12 +466,23 @@
 </style>
 
 <script>
-import NavBar from './components/NavBar.vue'
+import NavBar from "./components/NavBar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     NavBar,
-  }
-}
+  },
+  methods: {
+    scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    },
+  },
+};
 </script>
